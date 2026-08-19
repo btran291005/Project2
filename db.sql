@@ -398,12 +398,6 @@ INSERT INTO adjustment_reasons (reason_name) VALUES
 ('Expired Product Write-off'), ('Physical Damage / Dented Packaging'),
 ('Inventory Loss - Unknown Cause'), ('Supplier Defective Product');
 
-INSERT INTO api_configs (api_name, endpoint_url, api_key, configured_by) VALUES 
-('AI_Demand_Forecast', 'http://127.0.0.1:8000/forecast', '0167f04cc69a4ceff1ba1fe46aed5d352d0bc5dd56107c6f', 1),
-('Supplier_EDI_Gate', 'https://edi.gs25.vn/gateway', 'sk_edi_gs25_888', 1),
-('Zalo_ZNS_API', 'https://business.openapi.zalo.me/message/template', 'zalo_access_token_mock_123', 1),
-('Email_SMTP', 'smtp.gmail.com', 'smtp_app_password_mock_456', 1);
-
 -- 3.2. Products & Reorder Rules
 INSERT INTO products (product_id, sku_code, product_name, category_id, supplier_id, unit, shelf_life_days, unit_cost, selling_price) VALUES 
 (1, 'RTE-GB-001', 'GS25 Bulgogi Beef Gimbap', 2, 2, 'Roll', 2, 18000, 28000), (2, 'RTE-GB-002', 'GS25 Sausage and Cheese Gimbap', 2, 2, 'Roll', 2, 16000, 25000),
