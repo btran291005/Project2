@@ -1,0 +1,1431 @@
+/**
+ * File: frontend/assets/css/custom.css
+ * Purpose: Layout & component style dùng chung cho toàn bộ khu vực ĐÃ ĐĂNG NHẬP
+ * (Admin/Manager/Staff) - khung sườn app-shell (sidebar + content), header,
+ * footer, và các component tái sử dụng nhiều nơi (KPI card, panel card,
+ * activity list, badge, stock-pill...).
+ *
+ * Quy ước: dùng thẳng utility class của Bootstrap 5 (grid, spacing, flex...)
+ * ngay trong PHP; file này CHỈ chứa phần Bootstrap không có sẵn - đúng quy ước
+ * đã áp dụng ở login.css (xem comment đầu file đó).
+ *
+ * Include sau theme_variables.css (file này dùng các biến --brand-*, --color-*
+ * định nghĩa ở đó).
+ */
+
+body {
+    background: var(--surface-page-gradient);
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================================
+   1. APP SHELL - khung sườn 2 cột: sidebar cố định bên trái + content bên phải
+   ========================================================================= */
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.app-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: var(--sidebar-width);
+    background: transparent;
+}
+
+/* =========================================================================
+   2. SIDEBAR - LUXURY MODERN DARK GS25
+   ========================================================================= */
+
+.app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background: var(--brand-sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow-y: auto;
+    border-right: 1px solid rgba(0, 168, 232, 0.15);
+    box-shadow: 4px 0 28px rgba(7, 18, 36, 0.4);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    background: linear-gradient(180deg, rgba(0, 168, 232, 0.08) 0%, transparent 100%);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 11px;
+    box-shadow: 0 4px 14px rgba(0, 168, 232, 0.35);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+    transition: transform .2s ease;
+}
+
+.sidebar-logo:hover {
+    transform: scale(1.04);
+}
+
+.sidebar-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.sidebar-brand-title {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sidebar-brand-subtitle,
+.sidebar-brand-role {
+    color: #38bdf8;
+    font-size: .73rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    white-space: nowrap;
+    opacity: .95;
+}
+
+.sidebar-nav {
+    flex: 1 1 auto;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    color: rgba(226, 232, 240, 0.72);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 500;
+    position: relative;
+    transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    transform: translateX(2px);
+}
+
+.sidebar-link.active {
+    background: linear-gradient(90deg, rgba(0, 168, 232, 0.22) 0%, rgba(0, 168, 232, 0.05) 100%);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+    width: 3.5px;
+    border-radius: 0 4px 4px 0;
+    background: #00a8e8;
+    box-shadow: 0 0 10px #00a8e8;
+}
+
+.sidebar-link-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: currentColor;
+    opacity: .0;
+    position: relative;
+}
+
+.sidebar-link-icon::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 3px;
+    background: currentColor;
+    opacity: .85;
+}
+
+.sidebar-link-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-footer {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* =========================================================================
+   3. HEADER - GLASSMORPHIC LUXURY
+   ========================================================================= */
+
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: var(--header-height);
+    padding: 0 32px;
+    background: var(--surface-glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: var(--shadow-subtle);
+}
+
+.app-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.app-header-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.app-header-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .78rem;
+    color: var(--text-muted);
+}
+
+.app-header-breadcrumbs .crumb-sep {
+    color: #cbd5e1;
+}
+
+.app-header-breadcrumbs .crumb-current {
+    color: var(--brand-accent);
+    font-weight: 600;
+}
+
+.app-header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.app-header-user-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 12px 5px 5px;
+    border-radius: var(--radius-pill);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.app-header-user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: .84rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 168, 232, 0.35);
+}
+
+.app-header-user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+    padding-right: 4px;
+}
+
+.app-header-user-name {
+    font-size: .84rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.app-header-user-role {
+    font-size: .68rem;
+    font-weight: 600;
+    color: var(--brand-accent);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.app-header-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #dc2626;
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .15s ease;
+}
+
+.app-header-logout:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-color: #fca5a5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.12);
+}
+
+/* =========================================================================
+   4. MAIN CONTENT AREA
+   ========================================================================= */
+
+.app-main {
+    flex: 1 1 auto;
+    padding: 32px;
+}
+
+.page-heading {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.page-subheading {
+    font-size: .92rem;
+    color: var(--text-muted);
+}
+
+/* =========================================================================
+   5. FOOTER
+   ========================================================================= */
+
+.app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 18px 32px;
+    font-size: .8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--surface-border);
+    background: #ffffff;
+}
+
+.app-footer-sep {
+    color: #cbd5e1;
+}
+
+/* =========================================================================
+   6. KPI CARD - LUXURY ELEVATED
+   ========================================================================= */
+
+.kpi-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 22px;
+    background: var(--surface-card-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00a8e8, #38bdf8);
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(0, 168, 232, 0.3);
+}
+
+.kpi-card:hover::before {
+    opacity: 1;
+}
+
+.kpi-card-warn {
+    border-color: #fde68a;
+    background: linear-gradient(180deg, #fffbeb 0%, var(--surface-card-bg) 60%);
+}
+
+.kpi-card-warn::before {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    opacity: 1;
+}
+
+.kpi-label {
+    font-size: .74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--text-muted);
+}
+
+.kpi-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    font-feature-settings: "tnum";
+}
+
+.kpi-delta {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* =========================================================================
+   7. PANEL CARD (khối nội dung có tiêu đề)
+   ========================================================================= */
+
+.panel-card {
+    background: var(--surface-card-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px;
+    transition: box-shadow .2s ease;
+}
+
+.panel-card:hover {
+    box-shadow: var(--shadow-card-hover);
+}
+
+.panel-card-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.panel-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.panel-card-note {
+    font-size: .78rem;
+    color: var(--text-muted);
+}
+
+.panel-card-link {
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--brand-accent);
+    text-decoration: none;
+    transition: color .15s;
+}
+
+.panel-card-link:hover {
+    color: #0369a1;
+    text-decoration: underline;
+}
+
+.badge-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 8px;
+    border-radius: var(--radius-pill);
+    background: #f0f9ff;
+    color: #0284c7;
+    border: 1px solid #bae6fd;
+    font-size: .74rem;
+    font-weight: 700;
+}
+
+.badge-count-warn {
+    background: #fffbeb;
+    color: #d97706;
+    border-color: #fde68a;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.status-badge-success { background: #ecfdf5; color: #059669; border-color: #a7f3d0; }
+.status-badge-warning { background: #fffbeb; color: #d97706; border-color: #fde68a; }
+.status-badge-danger  { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.status-badge-info    { background: #f0f9ff; color: #0284c7; border-color: #bae6fd; }
+.status-badge-muted   { background: #f8fafc; color: #64748b; border-color: #e2e8f0; }
+
+/* Luxury Buttons & Controls */
+.btn-brand {
+    background: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
+    border: none;
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(0, 168, 232, 0.3);
+    transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-brand:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 168, 232, 0.4);
+    filter: brightness(1.05);
+}
+
+.btn-outline-secondary {
+    border-color: #cbd5e1;
+    color: #475569;
+    background: #ffffff;
+    font-weight: 600;
+}
+
+.btn-outline-secondary:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #00a8e8;
+    box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.18);
+}
+
+/* Form filter ngắn gọn dùng ở đầu các trang danh sách (audit log, PO list,
+   reorder rules...) - input/select nhỏ gọn, canh hàng ngang, tự xuống dòng
+   trên màn hình hẹp. */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 10px;
+}
+
+.filter-bar .form-label {
+    font-size: .8rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+/* Bootstrap .form-control/.form-select mặc định width:100%, và flex item mặc
+   định có min-width:auto (không chịu co nhỏ hơn nội dung bên trong) - 2 yếu
+   tố này cộng lại khiến chỉ set flex-basis KHÔNG ĐỦ để ép field co về đúng
+   kích thước, dẫn tới mỗi field vẫn giãn hết dòng. Set width TƯỜNG MINH +
+   min-width:0 trên từng div con để chắc chắn field co đúng kích thước mong
+   muốn, không phụ thuộc vào nội dung input bên trong nó. Width thu hẹp sát
+   nội dung thật của từng field (thay vì 200px đồng loạt, rộng thừa so với
+   nội dung ngắn như "24 giờ qua"/"Tất cả"), giảm khoảng trống dư thừa.
+   Dùng riêng cho từng field qua nth-child, vì HTML hiện không gắn class
+   riêng cho "date-range"/"account"/"action-type". */
+.filter-bar > div {
+    width: 160px;
+    min-width: 0;
+    flex: 0 0 auto;
+}
+
+.filter-bar > div.filter-bar-search {
+    width: 240px;
+    flex: 1 1 200px;
+}
+
+.filter-bar > div.filter-bar-actions {
+    width: auto;
+    flex: 0 0 auto;
+}
+
+/* Panel bọc filter-bar cần padding mỏng hơn panel-card thường (vốn thiết kế
+   cho nội dung nhiều dòng) - 1 hàng filter ngắn không cần khoảng đệm lớn như
+   vậy, nên trông "trống" quá mức. */
+.panel-card-compact {
+    padding: 14px 18px;
+}
+
+.empty-state {
+    padding: 24px 8px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: .86rem;
+}
+
+/* --- Bảng dữ liệu gọn trong panel-card --- */
+.data-table thead th {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--surface-border-soft);
+    padding-bottom: 10px;
+}
+
+.data-table tbody td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--surface-border-soft);
+    font-size: .87rem;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.stock-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .82rem;
+}
+
+.stock-pill-warn {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+.stock-pill-critical {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+/* --- Danh sách hoạt động (pending PO / recent activity) --- */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--surface-border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.activity-item:first-child {
+    padding-top: 0;
+}
+
+.activity-item-main {
+    font-size: .87rem;
+    color: var(--text-primary);
+}
+
+.activity-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: .76rem;
+    color: var(--text-muted);
+}
+
+.activity-item-time {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* =========================================================================
+   8. BUTTON - gradient thương hiệu (đồng bộ .btn-brand đã có ở login.css)
+   ========================================================================= */
+
+.btn-brand {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+    color: #fff;
+    border: none;
+    box-shadow: 0 6px 16px -8px rgba(30, 58, 95, .55);
+    transition: box-shadow .15s, transform .1s, filter .15s;
+}
+
+.btn-brand:hover {
+    color: #fff;
+    filter: brightness(1.06);
+    box-shadow: 0 10px 20px -8px rgba(30, 58, 95, .6);
+    transform: translateY(-1px);
+}
+
+.btn-brand:active {
+    transform: translateY(1px);
+}
+
+/* =========================================================================
+   10. DASHBOARD ANALYTICS - KPI trend/sparkline, activity trend chart,
+       product mix donut, PO workflow bars, alerts panel (System Overview)
+   ========================================================================= */
+
+/* --- KPI card: dòng label+trend, sparkline SVG dưới value --- */
+.kpi-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.kpi-trend {
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.kpi-trend-up { color: var(--color-success); }
+.kpi-trend-down { color: var(--color-warning); }
+.kpi-trend-flat { color: var(--text-muted); }
+
+.kpi-sparkline {
+    display: block;
+    width: 100%;
+    height: 36px;
+    margin-top: 4px;
+}
+
+.kpi-delta {
+    display: block;
+    height: 36px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    font-size: .74rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* --- Activity Trend (smooth area chart, 7 ngày) --- */
+.activity-chart-wrap {
+    width: 100%;
+}
+
+.activity-chart-svg {
+    display: block;
+    width: 100%;
+    height: 220px;
+}
+
+.activity-chart-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 4px 0;
+    font-size: .74rem;
+    color: var(--text-muted);
+}
+
+/* Nhãn ngày của điểm dữ liệu mới nhất (hôm nay/gần nhất) - đậm hơn để mắt
+   tự nhiên neo vào giá trị hiện tại, khớp với dot lớn hơn trên chart. */
+.activity-chart-label-current {
+    color: var(--brand-primary);
+    font-weight: 700;
+}
+
+/* Text bên trong SVG chart (trục Y + số tại từng điểm dữ liệu). SVG <text>
+   không kế thừa font-family/font-size từ CSS ngoài theo mặc định ở một số
+   trình duyệt, nên khai báo tường minh ở đây để không bị lệch cỡ chữ hệ
+   thống (thường to hơn nhiều so với thiết kế). */
+.activity-chart-axis-label {
+    font-family: inherit;
+    font-size: 10px;
+    fill: var(--text-muted);
+}
+
+.activity-chart-point-label {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--text-secondary, var(--text-muted));
+}
+
+/* Điểm dữ liệu mới nhất - nổi bật hơn hẳn các điểm còn lại để mắt neo vào
+   giá trị hiện tại trước, khớp với dot lớn hơn + vòng glow phía sau nó. */
+.activity-chart-point-label-current {
+    font-size: 13px;
+    font-weight: 800;
+    fill: var(--brand-primary);
+}
+
+/* --- Product Mix (donut + legend) --- */
+.product-mix-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.product-mix-donut {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+}
+
+.product-mix-donut svg {
+    width: 100%;
+    height: 100%;
+}
+
+.product-mix-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.product-mix-center-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.product-mix-center-label {
+    font-size: .7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.product-mix-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 120px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.product-mix-legend::-webkit-scrollbar {
+    width: 5px;
+}
+
+.product-mix-legend::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.product-mix-legend::-webkit-scrollbar-thumb {
+    background: var(--surface-border);
+    border-radius: 999px;
+}
+
+.product-mix-legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .84rem;
+    flex-shrink: 0;
+}
+
+.product-mix-legend-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+
+.product-mix-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    flex-shrink: 0;
+}
+
+.product-mix-legend-pct {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* --- Purchase Order Workflow (bar chart theo status) --- */
+.po-workflow-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    height: 200px;
+    padding: 0 8px;
+}
+
+.po-workflow-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    height: 100%;
+    gap: 8px;
+}
+
+.po-workflow-bar-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.po-workflow-bar {
+    width: 38px;
+    border-radius: 6px 6px 0 0;
+    background: var(--brand-primary);
+    min-height: 4px;
+    position: relative;
+    transition: filter .15s, transform .15s;
+}
+
+.po-workflow-bar:hover {
+    filter: brightness(1.15);
+    transform: scaleX(1.08);
+}
+
+/* Màu theo Ý NGHĨA trạng thái PO (Rejected = danger, Delivered = success,
+   Approved = info, Pending = warning, Draft = trung tính) - dùng chung
+   --color-* đã định nghĩa ở theme_variables.css, để khi trang po_approval.php
+   (hiện vẫn là stub, xem docblock đầu file đó) được viết đầy đủ với status
+   badge riêng, 2 nơi tự động khớp màu nhau mà không cần đồng bộ thủ công. */
+.po-workflow-bar-muted   { background: var(--text-muted); opacity: .55; }
+.po-workflow-bar-warning { background: var(--color-warning); }
+.po-workflow-bar-info    { background: var(--color-info); }
+.po-workflow-bar-success { background: var(--color-success); }
+.po-workflow-bar-danger  { background: var(--color-danger); }
+
+.po-workflow-bar-value {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .74rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.po-workflow-label {
+    font-size: .78rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* --- Alerts panel (System Overview - ưu tiên cảnh báo nghiệp vụ thật) --- */
+.alert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* alert-item giờ là <a> (bấm được, dẫn tới trang liên quan: low-stock trên
+   dashboard, po_approval.php, audit_log.php) thay vì <div> tĩnh trước đây -
+   reset màu link mặc định + thêm hover nhẹ để vẫn rõ ràng là có thể click. */
+.alert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--surface-border-soft);
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-sm);
+    transition: background .15s;
+}
+
+.alert-item:hover {
+    background: var(--brand-primary-light);
+    text-decoration: none;
+    color: inherit;
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+    padding-bottom: 8px;
+}
+
+.alert-item:first-child {
+    padding-top: 8px;
+}
+
+/* Chấm tròn màu severity ở đầu mỗi dòng - tín hiệu thị giác nhanh hơn việc
+   phải đọc chữ để biết mức độ, đồng bộ cách dùng chấm màu ở Product Mix legend. */
+.alert-item-icon {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+.alert-item-icon.severity-danger  { background: var(--color-danger); }
+.alert-item-icon.severity-warning { background: var(--color-warning); }
+.alert-item-icon.severity-info    { background: var(--brand-accent); }
+
+.alert-item-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.alert-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.alert-item-title {
+    font-size: .86rem;
+    font-weight: 700;
+}
+
+.alert-item-title.severity-danger { color: var(--color-danger); }
+.alert-item-title.severity-warning { color: var(--color-warning); }
+.alert-item-title.severity-info { color: var(--brand-accent); }
+
+.alert-item-time {
+    font-size: .72rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.alert-item-body {
+    font-size: .8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* =========================================================================
+   11. RESPONSIVE - sidebar thu gọn thành overlay trên màn hình nhỏ
+   ========================================================================= */
+
+@media (max-width: 991.98px) {
+    .app-sidebar {
+        transform: translateX(-100%);
+        transition: transform .2s ease;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .25);
+    }
+
+    .app-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .app-content {
+        margin-left: 0;
+    }
+
+    .app-header {
+        padding: 0 16px;
+    }
+
+    .app-main {
+        padding: 18px;
+    }
+
+    .po-workflow-chart {
+        gap: 10px;
+    }
+
+    .po-workflow-bar {
+        width: 26px;
+    }
+}
+/* =========================================================================
+   11. PO DETAIL STEPPER (frontend/manager/purchase_order/po_submit.php)
+       Timeline ngang Draft -> Pending -> Approved -> Delivered.
+   ========================================================================= */
+
+.po-detail-steps {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+}
+
+.po-detail-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    width: 140px;
+}
+
+.po-detail-step-dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    border: 2px solid var(--surface-border);
+    flex-shrink: 0;
+}
+
+.po-detail-step-label {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.po-detail-step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--surface-border);
+    margin: 0 -4px 26px;
+}
+
+.po-detail-step-done .po-detail-step-dot {
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.po-detail-step-done .po-detail-step-label {
+    color: var(--text-primary);
+}
+
+.po-detail-step-active .po-detail-step-dot {
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 4px var(--color-info-bg);
+}
+
+.po-detail-step-active .po-detail-step-label {
+    color: var(--brand-primary);
+    font-weight: 700;
+}
+
+.po-detail-step-rejected .po-detail-step-dot {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.po-detail-step-rejected .po-detail-step-label {
+    color: var(--color-danger);
+    font-weight: 700;
+}
+
+@media (max-width: 767px) {
+    .po-detail-steps {
+        overflow-x: auto;
+    }
+}
+
+/* =========================================================================
+   17. MANAGER DASHBOARD - Recommended Restocking cards + Quick Actions grid
+   ========================================================================= */
+
+/* Lưới card gợi ý đặt hàng (BR-05/FR-MGR-02) - mỗi card 1 sản phẩm cần bổ
+   sung, kèm mức ưu tiên (status-badge dùng lại, không tạo màu mới). */
+.restock-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    align-content: start;
+    gap: 14px;
+}
+
+.restock-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 18px;
+    background: var(--surface-card-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-subtle);
+    transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.restock-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(0, 168, 232, 0.35);
+    transform: translateY(-2px);
+}
+
+.restock-card-info {
+    width: 100%;
+}
+
+.restock-card-name {
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    letter-spacing: -0.01em;
+}
+
+.restock-card-sku {
+    font-size: .74rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.restock-card-metrics {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.restock-card-qty {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--brand-primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.restock-card-qty-label {
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.restock-card .status-badge {
+    align-self: flex-start;
+    margin-top: 2px;
+}
+
+/* Lưới nút Quick Actions (2 cột trên mobile, 2x2 mặc định) - mỗi nút dẫn
+   thẳng tới 1 trang chức năng thật, không phải hành động ẩn/JS. */
+.quick-action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Chiều cao MỖI hàng cố định 120px thay vì height:100% (kéo giãn 2 hàng
+       theo chiều cao panel-card bên trái, khiến nút tràn ra ngoài khung khi
+       panel bên trái cao hơn dự kiến - đúng lỗi trong ảnh). */
+    grid-auto-rows: 120px;
+    align-content: start;
+    gap: 10px;
+}
+
+.quick-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--surface-card-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: .78rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background .15s, border-color .15s, transform .1s;
+}
+
+.quick-action-btn:hover {
+    background: var(--brand-primary-light);
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.quick-action-btn:hover .quick-action-icon {
+    color: var(--brand-primary);
+}
+
+/* Icon SVG inline (24x24, stroke hiện tại kế thừa currentColor) - thay cho
+   khoảng trống trên đầu chữ trước đây khi HTML không thực sự chèn icon nào
+   dù CSS đã chừa gap cho nó. */
+.quick-action-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--text-muted);
+    transition: color .15s;
+}
+/* =====================================================================
+   TAB ĐIỀU HƯỚNG NỘI BỘ (dùng chung cho các nhóm trang con - VD: Manager
+   Inventory Health/AI Replenishment/Stock Incidents, Staff Inventory
+   Stock Count/Goods Receipt/Adjustment). Trước đây định nghĩa riêng lẻ
+   trong <style> của từng trang (inventory_health.php) - chuyển vào đây
+   để dùng chung, tránh lặp code 3-4 lần cho mỗi nhóm trang mới.
+   ===================================================================== */
+.inv-tab-nav {
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid var(--surface-border);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.inv-tab-link {
+    padding: 10px 16px;
+    font-size: .87rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+.inv-tab-link:hover { color: var(--brand-primary); }
+.inv-tab-link.active {
+    color: var(--brand-primary);
+    border-bottom-color: var(--brand-primary);
+}
+
+/* =====================================================================
+   STAFF DASHBOARD - Quick Actions cards (3 card loi tat hang ngay)
+   Moi action la 1 card rieng: icon + tieu de + mo ta + nut [Open/Start/Report].
+   ===================================================================== */
+.quick-actions-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.quick-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 18px 20px;
+    background: var(--surface-card-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow .15s, border-color .15s, transform .1s;
+}
+
+.quick-action-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--brand-primary);
+    transform: translateY(-1px);
+}
+
+.quick-action-card-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.quick-action-card-title {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.quick-action-card-desc {
+    font-size: .8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.quick-action-card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 18px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: box-shadow .15s, filter .15s, transform .1s;
+}
+
+.quick-action-card-btn:hover {
+    color: #fff;
+    filter: brightness(1.06);
+    box-shadow: 0 6px 16px -8px rgba(30, 58, 95, .55);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 767.98px) {
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+}

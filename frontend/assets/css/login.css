@@ -1,0 +1,238 @@
+/**
+ * File: frontend/assets/css/login.css
+ * Purpose: Luxury modern styling for Gs25IntelliStock Sign In portal
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --brand-primary: #0b1c38;
+    --brand-primary-dark: #071224;
+    --brand-cyan: #00a8e8;
+    --brand-cyan-glow: rgba(0, 168, 232, 0.3);
+    --brand-teal: #00c49f;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at 10% 20%, #e0f2fe 0%, #f8fafc 50%, #e2e8f0 100%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Atmospheric subtle mesh background */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0, 168, 232, 0.15) 1.5px, transparent 1.5px);
+    background-size: 80px 80px;
+    opacity: .4;
+    pointer-events: none;
+    z-index: 0;
+}
+body::after {
+    background-size: 140px 140px;
+    background-position: 50px 50px;
+    opacity: .25;
+}
+
+/* ---------------------------------------------------------- */
+/* Hero panel - Luxury dark GS25 gradient with glowing mesh    */
+/* ---------------------------------------------------------- */
+.hero-panel {
+    position: relative;
+    min-height: 440px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 80% 15%, rgba(0, 168, 232, 0.6), transparent 45%),
+        radial-gradient(circle at 20% 85%, rgba(0, 196, 159, 0.35), transparent 45%),
+        linear-gradient(160deg, #091325 0%, #0d1e3d 60%, #060e1a 100%);
+    box-shadow: 0 30px 60px -15px rgba(7, 18, 36, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-panel-glow {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.25), transparent 50%),
+        radial-gradient(ellipse at 85% 75%, rgba(0, 168, 232, 0.4), transparent 50%);
+}
+
+.hero-panel-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 75% 60% at 50% 35%, #000 45%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 35%, #000 45%, transparent 85%);
+}
+
+.hero-panel-nodes {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-panel-nodes circle {
+    fill: #38bdf8;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+}
+
+.hero-card {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    background: rgba(13, 30, 61, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+.hero-card h2 {
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+    font-weight: 800;
+}
+
+.hero-badge {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0b1c38;
+    box-shadow: 0 4px 12px -2px rgba(0, 168, 232, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+}
+
+.hero-badge .dot-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00a8e8;
+    box-shadow: 0 0 8px #00a8e8;
+}
+
+/* ---------------------------------------------------------- */
+/* Form panel & Segmented Control                               */
+/* ---------------------------------------------------------- */
+
+.role-tabs {
+    background: #e2e8f0;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.role-tab {
+    color: #64748b;
+    font-weight: 600;
+    font-size: .86rem;
+    padding: 8px 12px;
+    border-radius: 9px;
+    transition: all .2s ease;
+}
+
+.role-tab:hover {
+    color: #0f172a;
+}
+
+.role-tab.active {
+    background: #ffffff;
+    color: #0084c7;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 168, 232, 0.15), 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.login-card {
+    background: #ffffff;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+}
+
+.field-wrap {
+    position: relative;
+}
+
+.field-wrap .field-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.field-wrap .form-control {
+    padding-left: 42px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all .15s ease;
+}
+
+.field-wrap .form-control:focus {
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.18);
+    border-color: #00a8e8;
+}
+
+.toggle-pw {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    background: none;
+    border: none;
+    padding: 4px;
+    line-height: 0;
+    cursor: pointer;
+}
+.toggle-pw:hover {
+    color: #334155;
+}
+.toggle-pw svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Nút submit - gradient GS25 luxury */
+.btn-brand {
+    background: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
+    color: #fff;
+    box-shadow: 0 8px 20px -6px rgba(0, 168, 232, 0.5);
+    transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-brand:hover {
+    color: #fff;
+    filter: brightness(1.08);
+    box-shadow: 0 12px 28px -6px rgba(0, 168, 232, 0.6);
+    transform: translateY(-1px);
+}
+.btn-brand:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 12px -4px rgba(0, 168, 232, 0.5);
+}
+
+.demo-table code {
+    background: #f1f5f9;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    color: #0f172a;
+}
+
+.role-admin { color: #0284c7; }
+.role-manager { color: #059669; }
+.role-staff { color: #d97706; }
+
+@media (max-width: 767.98px) {
+    .hero-panel {
+        min-height: 280px;
+    }
+}

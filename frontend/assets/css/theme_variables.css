@@ -1,0 +1,67 @@
+/**
+ * File: frontend/assets/css/theme_variables.css
+ * Purpose: Design tokens & luxury modern styling for Gs25IntelliStock DSS
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* --- GS25 Modern Luxury Brand Colors --- */
+    --brand-primary: #0b1c38;
+    --brand-primary-dark: #071224;
+    --brand-primary-light: #f0f7ff;
+    --brand-cyan: #00a8e8;
+    --brand-cyan-glow: rgba(0, 168, 232, 0.25);
+    --brand-accent: #0284c7;
+    --brand-teal: #00c49f;
+    --brand-gradient: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
+    --brand-sidebar-bg: linear-gradient(180deg, #081326 0%, #0d1e3d 55%, #071122 100%);
+
+    /* --- Semantic Colors --- */
+    --color-success: #059669;
+    --color-success-bg: #ecfdf5;
+    --color-success-border: #a7f3d0;
+    --color-warning: #d97706;
+    --color-warning-bg: #fffbeb;
+    --color-warning-border: #fde68a;
+    --color-danger: #dc2626;
+    --color-danger-bg: #fef2f2;
+    --color-danger-border: #fecaca;
+    --color-info: #0284c7;
+    --color-info-bg: #f0f9ff;
+    --color-info-border: #bae6fd;
+
+    /* --- Surfaces & Backgrounds --- */
+    --surface-page-bg: #f8fafc;
+    --surface-page-gradient: radial-gradient(at 100% 0%, rgba(0, 168, 232, 0.04) 0px, transparent 45%),
+                              radial-gradient(at 0% 100%, rgba(11, 28, 56, 0.03) 0px, transparent 45%),
+                              #f8fafc;
+    --surface-card-bg: #ffffff;
+    --surface-card-hover: #ffffff;
+    --surface-border: #e2e8f0;
+    --surface-border-subtle: #edf2f7;
+    --surface-glass-bg: rgba(255, 255, 255, 0.88);
+
+    /* --- Typography --- */
+    --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+
+    /* --- Radii & Shadows --- */
+    --radius-xs: 6px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --radius-pill: 9999px;
+
+    --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.04);
+    --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+    --shadow-card-hover: 0 12px 30px -4px rgba(15, 23, 42, 0.1), 0 4px 10px -2px rgba(0, 168, 232, 0.08);
+    --shadow-glow: 0 0 20px rgba(0, 168, 232, 0.2);
+
+    /* --- Dimensions --- */
+    --sidebar-width: 268px;
+    --header-height: 70px;
+}
